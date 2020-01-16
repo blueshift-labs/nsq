@@ -5,11 +5,13 @@ import (
 	"container/heap"
 	"errors"
 	"math"
+	"path"
 	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
 
+	"github.com/blueshift-labs/badgerq"
 	"github.com/nsqio/go-diskqueue"
 	"github.com/nsqio/nsq/internal/lg"
 	"github.com/nsqio/nsq/internal/pqueue"
@@ -94,6 +96,25 @@ func NewChannel(topicName string, channelName string, ctx *context,
 	if strings.HasSuffix(channelName, "#ephemeral") {
 		c.ephemeral = true
 		c.backend = newDummyBackendQueue()
+	} else if strings.HasSuffix(channelName, "#badgerq") {
+		dqLogf := func(level badgerq.LogLevel, f string, args ...interface{}) {
+			opts := ctx.nsqd.getOpts()
+			lg.Logf(opts.Logger, opts.LogLevel, lg.LogLevel(level), f, args...)
+		}
+		// backend names, for uniqueness, automatically include the topic...
+		backendName := getBackendName(topicName, channelName)
+		c.backend = badgerq.New(
+			backendName,
+			path.Join(ctx.nsqd.getOpts().DataPath, backendName),
+			ctx.nsqd.getOpts().MemQueueSize,
+			ctx.nsqd.getOpts().OutputBufferTimeout,
+			ctx.nsqd.getOpts().SyncTimeout,
+			dqLogf,
+			MessageKeyExtractor,
+			MessageCutOffFunc,
+		)
+
+		c.memoryMsgChan = nil
 	} else {
 		dqLogf := func(level diskqueue.LogLevel, f string, args ...interface{}) {
 			opts := ctx.nsqd.getOpts()

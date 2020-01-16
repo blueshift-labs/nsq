@@ -98,3 +98,24 @@ func writeMessageToBackend(buf *bytes.Buffer, msg *Message, bq BackendQueue) err
 	}
 	return bq.Put(buf.Bytes())
 }
+
+var MessageCutOffFunc = func(key []byte) bool {
+	if len(key) < 8 {
+		return true
+	}
+
+	return int64(binary.BigEndian.Uint64(key[:8]))/int64(time.Second) >
+		time.Now().UnixNano()/int64(time.Second)
+}
+
+var MessageKeyExtractor = func(data []byte) ([]byte, error) {
+	if len(data) < minValidMsgLength {
+		return nil, fmt.Errorf("invalid message buffer size (%d)", len(data))
+	}
+
+	timestamp := make([]byte, 8)
+	copy(timestamp, data[:8])
+	messageID := data[10 : 10+MsgIDLength]
+
+	return append(timestamp, messageID...), nil
+}
