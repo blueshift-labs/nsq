@@ -222,8 +222,19 @@ func (s *httpServer) doPUB(w http.ResponseWriter, req *http.Request, ps httprout
 		}
 	}
 
+	var schedule time.Time
+	if ds, ok := reqParams["schedule"]; ok {
+		var di int64
+		di, err = strconv.ParseInt(ds[0], 10, 64)
+		if err != nil {
+			return nil, http_api.Err{400, "INVALID_SCHEDULE"}
+		}
+		schedule = time.Unix(di, 0)
+	}
+
 	msg := NewMessage(topic.GenerateID(), body)
 	msg.deferred = deferred
+	msg.Timestamp = schedule.UnixNano()
 	err = topic.PutMessage(msg)
 	if err != nil {
 		return nil, http_api.Err{503, "EXITING"}

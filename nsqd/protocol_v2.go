@@ -927,6 +927,63 @@ func (p *protocolV2) DPUB(client *clientV2, params [][]byte) ([]byte, error) {
 	return okBytes, nil
 }
 
+func (p *protocolV2) SPUB(client *clientV2, params [][]byte) ([]byte, error) {
+	var err error
+
+	if len(params) < 3 {
+		return nil, protocol.NewFatalClientErr(nil, "E_INVALID", "SPUB insufficient number of parameters")
+	}
+
+	topicName := string(params[1])
+	if !protocol.IsValidTopicName(topicName) {
+		return nil, protocol.NewFatalClientErr(nil, "E_BAD_TOPIC",
+			fmt.Sprintf("SPUB topic name %q is not valid", topicName))
+	}
+
+	schedule, err := protocol.ByteToBase10(params[2])
+	if err != nil {
+		return nil, protocol.NewFatalClientErr(err, "E_INVALID",
+			fmt.Sprintf("SPUB could not parse schedule %s", params[2]))
+	}
+
+	bodyLen, err := readLen(client.Reader, client.lenSlice)
+	if err != nil {
+		return nil, protocol.NewFatalClientErr(err, "E_BAD_MESSAGE", "SPUB failed to read message body size")
+	}
+
+	if bodyLen <= 0 {
+		return nil, protocol.NewFatalClientErr(nil, "E_BAD_MESSAGE",
+			fmt.Sprintf("SPUB invalid message body size %d", bodyLen))
+	}
+
+	if int64(bodyLen) > p.ctx.nsqd.getOpts().MaxMsgSize {
+		return nil, protocol.NewFatalClientErr(nil, "E_BAD_MESSAGE",
+			fmt.Sprintf("SPUB message too big %d > %d", bodyLen, p.ctx.nsqd.getOpts().MaxMsgSize))
+	}
+
+	messageBody := make([]byte, bodyLen)
+	_, err = io.ReadFull(client.Reader, messageBody)
+	if err != nil {
+		return nil, protocol.NewFatalClientErr(err, "E_BAD_MESSAGE", "SPUB failed to read message body")
+	}
+
+	if err := p.CheckAuth(client, "SPUB", topicName, ""); err != nil {
+		return nil, err
+	}
+
+	topic := p.ctx.nsqd.GetTopic(topicName)
+	msg := NewMessage(topic.GenerateID(), messageBody)
+	msg.Timestamp = int64(schedule) * int64(time.Second)
+	err = topic.PutMessage(msg)
+	if err != nil {
+		return nil, protocol.NewFatalClientErr(err, "E_SPUB_FAILED", "SPUB failed "+err.Error())
+	}
+
+	client.PublishedMessage(topicName, 1)
+
+	return okBytes, nil
+}
+
 func (p *protocolV2) TOUCH(client *clientV2, params [][]byte) ([]byte, error) {
 	state := atomic.LoadInt32(&client.State)
 	if state != stateSubscribed && state != stateClosing {
