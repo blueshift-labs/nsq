@@ -621,7 +621,7 @@ func TestSPUB(t *testing.T) {
 	topicName := "test_spub_v2" + strconv.Itoa(int(time.Now().Unix()))
 
 	identify(t, conn, nil, frameTypeResponse)
-	sub(t, conn, topicName, "ch#badgerq")
+	sub(t, conn, topicName, "ch.badgerq")
 
 	// valid
 	msgBody := []byte("scheduled message")
@@ -632,7 +632,7 @@ func TestSPUB(t *testing.T) {
 	test.Equal(t, frameTypeResponse, frameType)
 	test.Equal(t, []byte("OK"), data)
 
-	ch := nsqd.GetTopic(topicName).GetChannel("ch#badgerq")
+	ch := nsqd.GetTopic(topicName).GetChannel("ch.badgerq")
 	b := <-ch.backend.ReadChan()
 	msg, _ := decodeMessage(b)
 	test.Equal(t, msgBody, msg.Body)

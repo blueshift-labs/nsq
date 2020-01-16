@@ -96,7 +96,7 @@ func NewChannel(topicName string, channelName string, ctx *context,
 	if strings.HasSuffix(channelName, "#ephemeral") {
 		c.ephemeral = true
 		c.backend = newDummyBackendQueue()
-	} else if strings.HasSuffix(channelName, "#badgerq") {
+	} else if strings.HasSuffix(channelName, ".badgerq") {
 		dqLogf := func(level badgerq.LogLevel, f string, args ...interface{}) {
 			opts := ctx.nsqd.getOpts()
 			lg.Logf(opts.Logger, opts.LogLevel, lg.LogLevel(level), f, args...)

@@ -43,7 +43,7 @@ func TestPutMessageBadgerq(t *testing.T) {
 
 	topicName := "test_put_message" + strconv.Itoa(int(time.Now().Unix()))
 	topic := nsqd.GetTopic(topicName)
-	channel1 := topic.GetChannel("ch#badgerq")
+	channel1 := topic.GetChannel("ch.badgerq")
 
 	var id MessageID
 	msg := NewMessage(id, []byte("test"))
@@ -66,7 +66,7 @@ func TestPutMessage2Chan(t *testing.T) {
 	topicName := "test_put_message_2chan" + strconv.Itoa(int(time.Now().Unix()))
 	topic := nsqd.GetTopic(topicName)
 	channel1 := topic.GetChannel("ch1")
-	channel2 := topic.GetChannel("ch2#badgerq")
+	channel2 := topic.GetChannel("ch2.badgerq")
 
 	var id MessageID
 	msg := NewMessage(id, []byte("test"))
@@ -169,7 +169,7 @@ func TestChannelEmptyBadgerq(t *testing.T) {
 
 	topicName := "test_channel_empty" + strconv.Itoa(int(time.Now().Unix()))
 	topic := nsqd.GetTopic(topicName)
-	channel := topic.GetChannel("channel#badgerq")
+	channel := topic.GetChannel("channel.badgerq")
 
 	msgs := make([]*Message, 0, 25)
 	for i := 0; i < 25; i++ {
@@ -242,7 +242,7 @@ func TestChannelEmptyConsumerBadgerq(t *testing.T) {
 
 	topicName := "test_channel_empty" + strconv.Itoa(int(time.Now().Unix()))
 	topic := nsqd.GetTopic(topicName)
-	channel := topic.GetChannel("channel#badgerq")
+	channel := topic.GetChannel("channel.badgerq")
 	client := newClientV2(0, conn, &context{nsqd})
 	client.SetReadyCount(25)
 	err := channel.AddClient(client.ID, client)
@@ -353,7 +353,7 @@ func TestChannelHealthBadgerq(t *testing.T) {
 
 	topic := nsqd.GetTopic("test")
 
-	channel := topic.GetChannel("channel#badgerq")
+	channel := topic.GetChannel("channel.badgerq")
 
 	channel.backend = &errorBackendQueue{}
 
