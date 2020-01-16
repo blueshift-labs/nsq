@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/nsqio/go-nsq"
+	"github.com/blueshift-labs/go-nsq"
 	"github.com/nsqio/nsq/internal/version"
 )
 

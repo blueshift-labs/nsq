@@ -185,6 +185,8 @@ func (p *protocolV2) Exec(client *clientV2, params [][]byte) ([]byte, error) {
 		return p.MPUB(client, params)
 	case bytes.Equal(params[0], []byte("DPUB")):
 		return p.DPUB(client, params)
+	case bytes.Equal(params[0], []byte("SPUB")):
+		return p.SPUB(client, params)
 	case bytes.Equal(params[0], []byte("NOP")):
 		return p.NOP(client, params)
 	case bytes.Equal(params[0], []byte("TOUCH")):
@@ -944,6 +946,12 @@ func (p *protocolV2) SPUB(client *clientV2, params [][]byte) ([]byte, error) {
 	if err != nil {
 		return nil, protocol.NewFatalClientErr(err, "E_INVALID",
 			fmt.Sprintf("SPUB could not parse schedule %s", params[2]))
+	}
+
+	if schedule > uint64(time.Now().Add(p.ctx.nsqd.getOpts().MaxSchTimeout).UnixNano())/uint64(time.Second) {
+		return nil, protocol.NewFatalClientErr(nil, "E_INVALID",
+			fmt.Sprintf("SPUB schedule %d out of range 0-%d",
+				schedule, uint64(time.Now().Add(p.ctx.nsqd.getOpts().MaxSchTimeout).UnixNano())/uint64(time.Second)))
 	}
 
 	bodyLen, err := readLen(client.Reader, client.lenSlice)

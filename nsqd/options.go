@@ -47,6 +47,7 @@ type Options struct {
 	MaxMsgSize    int64         `flag:"max-msg-size"`
 	MaxBodySize   int64         `flag:"max-body-size"`
 	MaxReqTimeout time.Duration `flag:"max-req-timeout"`
+	MaxSchTimeout time.Duration `flag:"max-sch-timeout"`
 	ClientTimeout time.Duration
 
 	// client overridable configuration options
@@ -125,6 +126,7 @@ func NewOptions() *Options {
 		MaxMsgSize:    1024 * 1024,
 		MaxBodySize:   5 * 1024 * 1024,
 		MaxReqTimeout: 1 * time.Hour,
+		MaxSchTimeout: 366 * 24 * time.Hour,
 		ClientTimeout: 60 * time.Second,
 
 		MaxHeartbeatInterval:   60 * time.Second,

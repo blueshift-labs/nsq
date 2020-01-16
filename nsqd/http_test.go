@@ -17,7 +17,7 @@ import (
 
 	"strings"
 
-	"github.com/nsqio/go-nsq"
+	"github.com/blueshift-labs/go-nsq"
 	"github.com/nsqio/nsq/internal/http_api"
 	"github.com/nsqio/nsq/internal/test"
 	"github.com/nsqio/nsq/internal/version"
@@ -227,6 +227,51 @@ func TestHTTPpubDefer(t *testing.T) {
 	numDef := len(ch.deferredMessages)
 	ch.deferredMutex.Unlock()
 	test.Equal(t, 1, numDef)
+}
+
+func TestHTTPpubSchedule(t *testing.T) {
+	opts := NewOptions()
+	opts.Logger = test.NewTestLogger(t)
+	_, httpAddr, nsqd := mustStartNSQD(opts)
+	defer os.RemoveAll(opts.DataPath)
+	defer nsqd.Exit()
+
+	topicName := "test_http_pub_schedule" + strconv.Itoa(int(time.Now().Unix()))
+	topic := nsqd.GetTopic(topicName)
+	ch := topic.GetChannel("ch#badgerq")
+
+	msgBody := []byte("test message")
+	buf := bytes.NewBuffer(msgBody)
+	delay := 2 * time.Second
+	schedule := time.Now().Add(delay)
+	url := fmt.Sprintf("http://%s/pub?topic=%s&schedule=%d", httpAddr, topicName, schedule.UnixNano()/int64(time.Second))
+	resp, err := http.Post(url, "application/octet-stream", buf)
+	test.Nil(t, err)
+	defer resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+	test.Equal(t, "OK", string(body))
+
+	select {
+	case b := <-ch.backend.ReadChan():
+		if MessageCutOffFunc(b) {
+			t.Fatalf("Received scheduled message too too early")
+		}
+		msg, _ := decodeMessage(b)
+		test.Equal(t, msgBody, msg.Body)
+	case <-time.After(delay * 2):
+		t.Fatalf("Failed to receive scheduled message in time")
+	}
+
+	msgBody = []byte("invalid schedule message")
+	buf = bytes.NewBuffer(msgBody)
+	delay = 367 * 24 * time.Hour
+	schedule = time.Now().Add(delay)
+	url = fmt.Sprintf("http://%s/pub?topic=%s&schedule=%d", httpAddr, topicName, schedule.UnixNano()/int64(time.Second))
+	resp, err = http.Post(url, "application/octet-stream", buf)
+	test.Nil(t, err)
+	defer resp.Body.Close()
+	body, _ = ioutil.ReadAll(resp.Body)
+	test.Equal(t, "{\"message\":\"INVALID_SCHEDULE\"}", string(body))
 }
 
 func TestHTTPSRequire(t *testing.T) {

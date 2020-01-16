@@ -230,6 +230,9 @@ func (s *httpServer) doPUB(w http.ResponseWriter, req *http.Request, ps httprout
 			return nil, http_api.Err{400, "INVALID_SCHEDULE"}
 		}
 		schedule = time.Unix(di, 0)
+		if !schedule.Before(time.Now().Add(s.ctx.nsqd.getOpts().MaxSchTimeout)) {
+			return nil, http_api.Err{400, "INVALID_SCHEDULE"}
+		}
 	}
 
 	msg := NewMessage(topic.GenerateID(), body)
