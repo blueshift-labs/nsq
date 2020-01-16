@@ -13,8 +13,8 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/nsqio/nsq/internal/protocol"
-	"github.com/nsqio/nsq/internal/version"
+	"github.com/blueshift-labs/nsq/internal/protocol"
+	"github.com/blueshift-labs/nsq/internal/version"
 )
 
 const maxTimeout = time.Hour

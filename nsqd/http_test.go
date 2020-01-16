@@ -18,10 +18,10 @@ import (
 	"strings"
 
 	"github.com/blueshift-labs/go-nsq"
-	"github.com/nsqio/nsq/internal/http_api"
-	"github.com/nsqio/nsq/internal/test"
-	"github.com/nsqio/nsq/internal/version"
-	"github.com/nsqio/nsq/nsqlookupd"
+	"github.com/blueshift-labs/nsq/internal/http_api"
+	"github.com/blueshift-labs/nsq/internal/test"
+	"github.com/blueshift-labs/nsq/internal/version"
+	"github.com/blueshift-labs/nsq/nsqlookupd"
 )
 
 type ErrMessage struct {

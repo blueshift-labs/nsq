@@ -17,13 +17,13 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/nsqio/nsq/internal/clusterinfo"
-	"github.com/nsqio/nsq/internal/dirlock"
-	"github.com/nsqio/nsq/internal/http_api"
-	"github.com/nsqio/nsq/internal/protocol"
-	"github.com/nsqio/nsq/internal/statsd"
-	"github.com/nsqio/nsq/internal/util"
-	"github.com/nsqio/nsq/internal/version"
+	"github.com/blueshift-labs/nsq/internal/clusterinfo"
+	"github.com/blueshift-labs/nsq/internal/dirlock"
+	"github.com/blueshift-labs/nsq/internal/http_api"
+	"github.com/blueshift-labs/nsq/internal/protocol"
+	"github.com/blueshift-labs/nsq/internal/statsd"
+	"github.com/blueshift-labs/nsq/internal/util"
+	"github.com/blueshift-labs/nsq/internal/version"
 )
 
 const (

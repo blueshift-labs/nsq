@@ -20,10 +20,10 @@ Help us keep NSQ open and inclusive. Please read and follow our [Code of Conduct
   * we typically name branches according to the following format: `helpful_name_<issue_number>`
 * make commits of logical units
 * make sure your commit messages are in a clear and readable format, example:
-  
+
 ```
 nsqd: fixed bug in protocol_v2
-  
+
 * update the message pump to properly account for RDYness
 * cleanup variable names
 * ...
@@ -37,5 +37,5 @@ nsqd: fixed bug in protocol_v2
 ## Submitting Changes
 
 * push your changes to your branch in your fork of the repository
-* submit a pull request against nsqio's repository
+* submit a pull request against blueshift-labs's repository
 * comment in the pull request when you're ready for the changes to be reviewed: `"ready for review"`

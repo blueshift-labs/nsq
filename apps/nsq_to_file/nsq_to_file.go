@@ -12,10 +12,10 @@ import (
 	"time"
 
 	"github.com/mreiferson/go-options"
-	"github.com/nsqio/go-nsq"
-	"github.com/nsqio/nsq/internal/app"
-	"github.com/nsqio/nsq/internal/lg"
-	"github.com/nsqio/nsq/internal/version"
+	"github.com/blueshift-labs/go-nsq"
+	"github.com/blueshift-labs/nsq/internal/app"
+	"github.com/blueshift-labs/nsq/internal/lg"
+	"github.com/blueshift-labs/nsq/internal/version"
 )
 
 func hasArg(s string) bool {
@@ -63,7 +63,7 @@ func flagSet() *flag.FlagSet {
 	fs.Var(&nsqdTCPAddrs, "nsqd-tcp-address", "nsqd TCP address (may be given multiple times)")
 	fs.Var(&lookupdHTTPAddrs, "lookupd-http-address", "lookupd HTTP address (may be given multiple times)")
 	fs.Var(&topics, "topic", "nsq topic (may be given multiple times)")
-	fs.Var(&consumerOpts, "consumer-opt", "option to passthrough to nsq.Consumer (may be given multiple times, http://godoc.org/github.com/nsqio/go-nsq#Config)")
+	fs.Var(&consumerOpts, "consumer-opt", "option to passthrough to nsq.Consumer (may be given multiple times, http://godoc.org/github.com/blueshift-labs/go-nsq#Config)")
 
 	return fs
 }

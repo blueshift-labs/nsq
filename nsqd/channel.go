@@ -12,10 +12,10 @@ import (
 	"time"
 
 	"github.com/blueshift-labs/badgerq"
-	"github.com/nsqio/go-diskqueue"
-	"github.com/nsqio/nsq/internal/lg"
-	"github.com/nsqio/nsq/internal/pqueue"
-	"github.com/nsqio/nsq/internal/quantile"
+	"github.com/blueshift-labs/go-diskqueue"
+	"github.com/blueshift-labs/nsq/internal/lg"
+	"github.com/blueshift-labs/nsq/internal/pqueue"
+	"github.com/blueshift-labs/nsq/internal/quantile"
 )
 
 type Consumer interface {

@@ -17,9 +17,9 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/nsqio/nsq/internal/http_api"
-	"github.com/nsqio/nsq/internal/util"
-	"github.com/nsqio/nsq/internal/version"
+	"github.com/blueshift-labs/nsq/internal/http_api"
+	"github.com/blueshift-labs/nsq/internal/util"
+	"github.com/blueshift-labs/nsq/internal/version"
 )
 
 type NSQAdmin struct {

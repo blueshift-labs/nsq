@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/blueshift-labs/go-nsq"
-	"github.com/nsqio/nsq/internal/lg"
+	"github.com/blueshift-labs/nsq/internal/lg"
 )
 
 // lookupPeer is a low-level type for connecting/reading/writing to nsqlookupd

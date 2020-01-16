@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/blueshift-labs/go-nsq"
-	"github.com/nsqio/nsq/internal/version"
+	"github.com/blueshift-labs/nsq/internal/version"
 )
 
 func connectCallback(n *NSQD, hostname string) func(*lookupPeer) {

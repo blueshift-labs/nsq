@@ -15,9 +15,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/nsqio/go-nsq"
-	"github.com/nsqio/nsq/internal/app"
-	"github.com/nsqio/nsq/internal/version"
+	"github.com/blueshift-labs/go-nsq"
+	"github.com/blueshift-labs/nsq/internal/app"
+	"github.com/blueshift-labs/nsq/internal/version"
 )
 
 var (
@@ -33,7 +33,7 @@ func init() {
 
 func main() {
 	cfg := nsq.NewConfig()
-	flag.Var(&nsq.ConfigFlag{cfg}, "producer-opt", "option to passthrough to nsq.Producer (may be given multiple times, http://godoc.org/github.com/nsqio/go-nsq#Config)")
+	flag.Var(&nsq.ConfigFlag{cfg}, "producer-opt", "option to passthrough to nsq.Producer (may be given multiple times, http://godoc.org/github.com/blueshift-labs/go-nsq#Config)")
 	rate := flag.Int64("rate", 0, "Throttle messages to n/second. 0 to disable")
 
 	flag.Parse()

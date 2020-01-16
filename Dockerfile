@@ -1,9 +1,9 @@
 FROM golang:latest AS build
 
-RUN mkdir -p /go/src/github.com/nsqio/nsq
-COPY . /go/src/github.com/nsqio/nsq
+RUN mkdir -p /go/src/github.com/blueshift-labs/nsq
+COPY . /go/src/github.com/blueshift-labs/nsq
 
-WORKDIR /go/src/github.com/nsqio/nsq
+WORKDIR /go/src/github.com/blueshift-labs/nsq
 
 RUN export GO111MODULE=on \
  && ./test.sh \

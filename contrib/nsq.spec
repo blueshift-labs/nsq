@@ -17,14 +17,14 @@ AutoReqProv: no
 # we just assume you have go installed. You may or may not have an RPM to depend on.
 # BuildRequires: go
 
-%description 
+%description
 NSQ - A realtime distributed messaging platform
-https://github.com/nsqio/nsq
+https://github.com/blueshift-labs/nsq
 
 %prep
 mkdir -p $RPM_BUILD_DIR/%{name}-%{version}-%{release}
 cd $RPM_BUILD_DIR/%{name}-%{version}-%{release}
-git clone git@github.com:nsqio/nsq.git
+git clone git@github.com:blueshift-labs/nsq.git
 
 %build
 cd $RPM_BUILD_DIR/%{name}-%{version}-%{release}/nsq

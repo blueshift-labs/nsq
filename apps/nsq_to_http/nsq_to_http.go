@@ -22,10 +22,10 @@ import (
 
 	"github.com/bitly/go-hostpool"
 	"github.com/bitly/timer_metrics"
-	"github.com/nsqio/go-nsq"
-	"github.com/nsqio/nsq/internal/app"
-	"github.com/nsqio/nsq/internal/http_api"
-	"github.com/nsqio/nsq/internal/version"
+	"github.com/blueshift-labs/go-nsq"
+	"github.com/blueshift-labs/nsq/internal/app"
+	"github.com/blueshift-labs/nsq/internal/http_api"
+	"github.com/blueshift-labs/nsq/internal/version"
 )
 
 const (
@@ -173,7 +173,7 @@ func main() {
 
 	cfg := nsq.NewConfig()
 
-	flag.Var(&nsq.ConfigFlag{cfg}, "consumer-opt", "option to passthrough to nsq.Consumer (may be given multiple times, http://godoc.org/github.com/nsqio/go-nsq#Config)")
+	flag.Var(&nsq.ConfigFlag{cfg}, "consumer-opt", "option to passthrough to nsq.Consumer (may be given multiple times, http://godoc.org/github.com/blueshift-labs/go-nsq#Config)")
 	flag.Parse()
 
 	httpclient = &http.Client{Transport: http_api.NewDeadlineTransport(*httpConnectTimeout, *httpRequestTimeout), Timeout: *httpRequestTimeout}

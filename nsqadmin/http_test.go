@@ -12,11 +12,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nsqio/nsq/internal/clusterinfo"
-	"github.com/nsqio/nsq/internal/test"
-	"github.com/nsqio/nsq/internal/version"
-	"github.com/nsqio/nsq/nsqd"
-	"github.com/nsqio/nsq/nsqlookupd"
+	"github.com/blueshift-labs/nsq/internal/clusterinfo"
+	"github.com/blueshift-labs/nsq/internal/test"
+	"github.com/blueshift-labs/nsq/internal/version"
+	"github.com/blueshift-labs/nsq/nsqd"
+	"github.com/blueshift-labs/nsq/nsqlookupd"
 )
 
 type TopicsDoc struct {
