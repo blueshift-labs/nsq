@@ -238,7 +238,7 @@ func TestHTTPpubSchedule(t *testing.T) {
 
 	topicName := "test_http_pub_schedule" + strconv.Itoa(int(time.Now().Unix()))
 	topic := nsqd.GetTopic(topicName)
-	ch := topic.GetChannel("ch#badgerq")
+	ch := topic.GetChannel("ch.badgerq")
 
 	msgBody := []byte("test message")
 	buf := bytes.NewBuffer(msgBody)
