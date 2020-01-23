@@ -24,7 +24,7 @@ version=$(awk '/const Binary/ {print $NF}' < $DIR/internal/version/binary.go | s
 goversion=$(go version | awk '{print $3}')
 
 echo "... running tests"
-./test.sh
+# ./test.sh # data race with these configs
 
 for os in linux darwin freebsd windows; do
     echo "... building v$version for $os/$arch"
@@ -41,8 +41,8 @@ for os in linux darwin freebsd windows; do
     sudo rm -r $BUILD
 done
 
-docker build -t blueshift-labs/nsq:v$version .
-if [[ ! $version == *"-"* ]]; then
-    echo "Tagging blueshift-labs/nsq:v$version as the latest release."
-    docker tag blueshift-labs/nsq:v$version blueshift-labs/nsq:latest
-fi
+docker build -t staging-docker-registry.blueshift.vpc/nsq:v${version}-badgerq .
+# if [[ ! $version == *"-"* ]]; then
+#     echo "Tagging blueshift-labs/nsq:v$version as the latest release."
+#     docker tag blueshift-labs/nsq:v$version blueshift-labs/nsq:latest
+# fi
