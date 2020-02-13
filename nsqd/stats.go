@@ -5,7 +5,7 @@ import (
 	"sort"
 	"sync/atomic"
 
-	"github.com/blueshift-labs/nsq/internal/quantile"
+	"github.com/nsqio/nsq/internal/quantile"
 )
 
 type TopicStats struct {

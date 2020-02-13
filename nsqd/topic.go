@@ -8,10 +8,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/blueshift-labs/go-diskqueue"
-	"github.com/blueshift-labs/nsq/internal/lg"
-	"github.com/blueshift-labs/nsq/internal/quantile"
-	"github.com/blueshift-labs/nsq/internal/util"
+	"github.com/nsqio/go-diskqueue"
+	"github.com/nsqio/nsq/internal/lg"
+	"github.com/nsqio/nsq/internal/quantile"
+	"github.com/nsqio/nsq/internal/util"
 )
 
 type Topic struct {

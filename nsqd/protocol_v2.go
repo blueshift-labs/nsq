@@ -9,12 +9,13 @@ import (
 	"io"
 	"math/rand"
 	"net"
+	"strings"
 	"sync/atomic"
 	"time"
 	"unsafe"
 
-	"github.com/blueshift-labs/nsq/internal/protocol"
-	"github.com/blueshift-labs/nsq/internal/version"
+	"github.com/nsqio/nsq/internal/protocol"
+	"github.com/nsqio/nsq/internal/version"
 )
 
 const maxTimeout = time.Hour
@@ -770,6 +771,10 @@ func (p *protocolV2) PUB(client *clientV2, params [][]byte) ([]byte, error) {
 	}
 
 	topicName := string(params[1])
+	if strings.HasSuffix(topicName, ".schedulex") {
+		return p.SPUB(client, params)
+	}
+
 	if !protocol.IsValidTopicName(topicName) {
 		return nil, protocol.NewFatalClientErr(nil, "E_BAD_TOPIC",
 			fmt.Sprintf("PUB topic name %q is not valid", topicName))

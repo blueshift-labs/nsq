@@ -12,10 +12,10 @@ import (
 	"time"
 
 	"github.com/blueshift-labs/badgerq"
-	"github.com/blueshift-labs/go-diskqueue"
-	"github.com/blueshift-labs/nsq/internal/lg"
-	"github.com/blueshift-labs/nsq/internal/pqueue"
-	"github.com/blueshift-labs/nsq/internal/quantile"
+	"github.com/nsqio/go-diskqueue"
+	"github.com/nsqio/nsq/internal/lg"
+	"github.com/nsqio/nsq/internal/pqueue"
+	"github.com/nsqio/nsq/internal/quantile"
 )
 
 type Consumer interface {
@@ -104,12 +104,12 @@ func NewChannel(topicName string, channelName string, ctx *context,
 		// backend names, for uniqueness, automatically include the topic...
 		backendName := getBackendName(topicName, channelName)
 		c.backend = badgerq.New(
-			backendName,
-			path.Join(ctx.nsqd.getOpts().DataPath, backendName),
-			ctx.nsqd.getOpts().MemQueueSize,
-			ctx.nsqd.getOpts().OutputBufferTimeout,
-			ctx.nsqd.getOpts().SyncTimeout,
-			dqLogf,
+			backendName, //name
+			path.Join(ctx.nsqd.getOpts().DataPath, backendName), //dir
+			ctx.nsqd.getOpts().MemQueueSize,                     //bufferSize
+			ctx.nsqd.getOpts().OutputBufferTimeout,              //idleWait
+			ctx.nsqd.getOpts().SyncTimeout,                      //syncInterval
+			dqLogf,                                              //logger
 			MessageKeyExtractor,
 			MessageCutOffFunc,
 		)

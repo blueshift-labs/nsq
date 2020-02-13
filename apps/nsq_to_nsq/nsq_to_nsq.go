@@ -18,10 +18,10 @@ import (
 
 	"github.com/bitly/go-hostpool"
 	"github.com/bitly/timer_metrics"
-	"github.com/blueshift-labs/go-nsq"
-	"github.com/blueshift-labs/nsq/internal/app"
-	"github.com/blueshift-labs/nsq/internal/protocol"
-	"github.com/blueshift-labs/nsq/internal/version"
+	"github.com/nsqio/go-nsq"
+	"github.com/nsqio/nsq/internal/app"
+	"github.com/nsqio/nsq/internal/protocol"
+	"github.com/nsqio/nsq/internal/version"
 )
 
 const (
@@ -270,8 +270,8 @@ func main() {
 	cCfg := nsq.NewConfig()
 	pCfg := nsq.NewConfig()
 
-	flag.Var(&nsq.ConfigFlag{cCfg}, "consumer-opt", "option to passthrough to nsq.Consumer (may be given multiple times, see http://godoc.org/github.com/blueshift-labs/go-nsq#Config)")
-	flag.Var(&nsq.ConfigFlag{pCfg}, "producer-opt", "option to passthrough to nsq.Producer (may be given multiple times, see http://godoc.org/github.com/blueshift-labs/go-nsq#Config)")
+	flag.Var(&nsq.ConfigFlag{cCfg}, "consumer-opt", "option to passthrough to nsq.Consumer (may be given multiple times, see http://godoc.org/github.com/nsqio/go-nsq#Config)")
+	flag.Var(&nsq.ConfigFlag{pCfg}, "producer-opt", "option to passthrough to nsq.Producer (may be given multiple times, see http://godoc.org/github.com/nsqio/go-nsq#Config)")
 
 	flag.Parse()
 

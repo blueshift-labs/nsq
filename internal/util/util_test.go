@@ -3,7 +3,7 @@ package util
 import (
 	"testing"
 
-	"github.com/blueshift-labs/nsq/internal/test"
+	"github.com/nsqio/nsq/internal/test"
 )
 
 func BenchmarkUniqRands5of5(b *testing.B) {

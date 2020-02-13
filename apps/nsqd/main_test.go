@@ -7,8 +7,8 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/mreiferson/go-options"
-	"github.com/blueshift-labs/nsq/internal/test"
-	"github.com/blueshift-labs/nsq/nsqd"
+	"github.com/nsqio/nsq/internal/test"
+	"github.com/nsqio/nsq/nsqd"
 )
 
 func TestConfigFlagParsing(t *testing.T) {

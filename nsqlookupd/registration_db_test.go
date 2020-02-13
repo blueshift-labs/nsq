@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/blueshift-labs/nsq/internal/test"
+	"github.com/nsqio/nsq/internal/test"
 )
 
 func TestRegistrationDB(t *testing.T) {

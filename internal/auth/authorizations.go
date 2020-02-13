@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/blueshift-labs/nsq/internal/http_api"
+	"github.com/nsqio/nsq/internal/http_api"
 )
 
 type Authorization struct {

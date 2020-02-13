@@ -4,10 +4,10 @@
 # 2. tag that commit
 # 3. use dist.sh to produce tar.gz for all platforms
 # 4. upload *.tar.gz to bitly s3 bucket
-# 5. docker push blueshift-labs/nsq
-# 6. push to blueshift-labs/master
+# 5. docker push nsqio/nsq
+# 6. push to nsqio/master
 # 7. update the release metadata on github / upload the binaries there too
-# 8. update blueshift-labs/blueshift-labs.github.io/_posts/2014-03-01-installing.md
+# 8. update nsqio/nsqio.github.io/_posts/2014-03-01-installing.md
 # 9. send release announcement emails
 # 10. update IRC channel topic
 # 11. tweet
@@ -43,6 +43,6 @@ done
 
 docker build -t staging-docker-registry.blueshift.vpc/nsq:v${version}-badgerq .
 # if [[ ! $version == *"-"* ]]; then
-#     echo "Tagging blueshift-labs/nsq:v$version as the latest release."
-#     docker tag blueshift-labs/nsq:v$version blueshift-labs/nsq:latest
+#     echo "Tagging nsqio/nsq:v$version as the latest release."
+#     docker tag nsqio/nsq:v$version nsqio/nsq:latest
 # fi

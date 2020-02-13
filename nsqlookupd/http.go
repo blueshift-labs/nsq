@@ -7,9 +7,9 @@ import (
 	"sync/atomic"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/blueshift-labs/nsq/internal/http_api"
-	"github.com/blueshift-labs/nsq/internal/protocol"
-	"github.com/blueshift-labs/nsq/internal/version"
+	"github.com/nsqio/nsq/internal/http_api"
+	"github.com/nsqio/nsq/internal/protocol"
+	"github.com/nsqio/nsq/internal/version"
 )
 
 type httpServer struct {

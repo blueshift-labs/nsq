@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/blueshift-labs/go-nsq"
-	"github.com/blueshift-labs/nsq/internal/clusterinfo"
-	"github.com/blueshift-labs/nsq/internal/http_api"
-	"github.com/blueshift-labs/nsq/internal/test"
+	"github.com/nsqio/go-nsq"
+	"github.com/nsqio/nsq/internal/clusterinfo"
+	"github.com/nsqio/nsq/internal/http_api"
+	"github.com/nsqio/nsq/internal/test"
 )
 
 const (

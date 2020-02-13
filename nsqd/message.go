@@ -113,9 +113,9 @@ var MessageKeyExtractor = func(data []byte) ([]byte, error) {
 		return nil, fmt.Errorf("invalid message buffer size (%d)", len(data))
 	}
 
-	timestamp := make([]byte, 8)
-	copy(timestamp, data[:8])
-	messageID := data[10 : 10+MsgIDLength]
+	timestamp := make([]byte, 8)           //make 8 length byte array
+	copy(timestamp, data[:8])              //copy first 8 into timestamp
+	messageID := data[10 : 10+MsgIDLength] //10 to 26 is message id
 
-	return append(timestamp, messageID...), nil
+	return append(timestamp, messageID...), nil // return array 24 that is ts+msgid
 }

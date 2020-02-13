@@ -3,7 +3,7 @@ package lg
 import (
 	"testing"
 
-	"github.com/blueshift-labs/nsq/internal/test"
+	"github.com/nsqio/nsq/internal/test"
 )
 
 type mockLogger struct {

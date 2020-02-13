@@ -5,9 +5,9 @@ memQueueSize="1000000"
 dataPath=`pwd`/tmp
 chan="ch"
 
-mkdir -p tmp
 
 rm -rf ${dataPath}/*
+mkdir -p tmp
 sleep 5
 echo "default channel type"
 ./benchv2.sh ${messageSize} ${batchSize} ${memQueueSize} ${dataPath} ${chan}
@@ -24,3 +24,5 @@ sleep 5
 echo "badger channel type, batch 100"
 batchSize="100"
 ./benchv2.sh ${messageSize} ${batchSize} ${memQueueSize} ${dataPath} ${chan}
+
+rm -rf ${dataPath}/*

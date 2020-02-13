@@ -11,7 +11,7 @@ Usage of ./to_nsq:
   -nsqd-tcp-address value
     	destination nsqd TCP address (may be given multiple times)
   -producer-opt value
-    	option to passthrough to nsq.Producer (may be given multiple times, http://godoc.org/github.com/blueshift-labs/go-nsq#Config)
+    	option to passthrough to nsq.Producer (may be given multiple times, http://godoc.org/github.com/nsqio/go-nsq#Config)
   -rate int
     	Throttle messages to n/second. 0 to disable
   -topic string

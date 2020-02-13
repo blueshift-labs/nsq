@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/blueshift-labs/nsq/internal/test"
+	"github.com/nsqio/nsq/internal/test"
 )
 
 // ensure that we can push a message through a topic and get it out of a channel
