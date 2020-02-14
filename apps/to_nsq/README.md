@@ -17,7 +17,7 @@ Usage of ./to_nsq:
   -topic string
     	NSQ topic to publish to
 ```
-
+    
 ### Examples
 
 Publish each line of a file:

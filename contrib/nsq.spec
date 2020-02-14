@@ -17,7 +17,7 @@ AutoReqProv: no
 # we just assume you have go installed. You may or may not have an RPM to depend on.
 # BuildRequires: go
 
-%description
+%description 
 NSQ - A realtime distributed messaging platform
 https://github.com/nsqio/nsq
 
